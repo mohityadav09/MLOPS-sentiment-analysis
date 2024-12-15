@@ -6,7 +6,7 @@ stages:
     - train_data.csv
     params:
     - data_ingestion.test_size
-  
+
     outs:
     - data/raw
 
@@ -14,7 +14,7 @@ stages:
     cmd: python src/data_preprocessing.py
     deps:
     - src/data_preprocessing.py
-    - data/raw 
+    - data/raw
     outs:
     - data/interim
 
@@ -45,8 +45,15 @@ stages:
     - src/model_evaluation.py
     - models/model.pkl
     - data/processed
-    
+
     metrics:
     - reports/metrics.json
 
 
+params:
+- dvclive/params.yaml
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
