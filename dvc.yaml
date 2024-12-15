@@ -4,6 +4,9 @@ stages:
     deps:
     - src/data_ingestion.py
     - train_data.csv
+    params:
+    - data_ingestion.test_size
+  
     outs:
     - data/raw
 
@@ -20,6 +23,8 @@ stages:
     deps:
     - src/feature_engineering.py
     - data/interim
+    params:
+    - feature_engineering.max_features
     outs:
     - data/processed
 
@@ -28,6 +33,9 @@ stages:
     deps:
     - src/model_building.py
     - data/processed
+    params:
+    - model_building.n_estimators
+    - model_building.random_state
     outs:
     - models/model.pkl
 
@@ -37,6 +45,7 @@ stages:
     - src/model_evaluation.py
     - models/model.pkl
     - data/processed
+    
     metrics:
     - reports/metrics.json
 
